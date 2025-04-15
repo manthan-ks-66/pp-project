@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# Song list
+# Song list (dataset)
 song_names = [
     "Blinding Lights - The Weeknd",
     "Shape of You - Ed Sheeran",
@@ -44,12 +44,12 @@ def recommend_similar_songs(song_index, ratings, song_names, top_n=3):
     similarities.sort(key=lambda x: x[1], reverse=True)
     return similarities[:top_n]
 
-# Display song choices
+# Display the song choices
 print("🎵 Available Songs:")
 for idx, song in enumerate(song_names):
     print(f"{idx + 1}. {song}")
 
-# Take user input
+# Taking user input
 try:
     choice = int(input("\nEnter the number of a song you like (1-10): ")) - 1
     if 0 <= choice < len(song_names):
