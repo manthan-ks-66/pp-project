@@ -65,7 +65,7 @@ except ValueError:
 recommended_songs = ["Shape of You", "Stay", "Bad Habits"]
 similarity_scores = [0.99, 0.97, 0.96]
 
-plt.bar(recommended_songs, similarity_scores, color='skyblue')
+plt.bar(recommended_songs, similarity_scores, color='green')
 plt.xlabel("Recommended Songs")
 plt.ylabel("Similarity Score")
 plt.title("Top 3 Similar Songs to 'Blinding Lights'")
