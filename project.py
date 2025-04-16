@@ -31,16 +31,39 @@ def cosine_similarity(a, b):
     denom = np.linalg.norm(a) * np.linalg.norm(b)
     return num / denom if denom != 0 else 0
 
+# Recommends top_n most similar songs to the one chosen.
 def recommend_similar_songs(song_index, ratings, song_names, top_n=3):
+    # Gets ratings column for the selected song (across all users).
     target_song_ratings = ratings[:, song_index]
     similarities = []
 
+    #  This loop is going through each song one by one.
+
+    # len(song_names) is 10 (since we have 10 songs).
+
+    # So i goes from 0 to 9 (index of each song).
+
     for i in range(len(song_names)):
+        # This means: “Skip the song the user already selected.”
+
+        # We don’t want to compare the song to itself.
+
+        # So, if the current song is the same as the one user chose (i == song_index), it skips to the next one.
         if i == song_index:
             continue
+
+        #  This calculates the cosine similarity between:
+
+        #  arget_song_ratings → ratings of the song the user selected.
+
+        #  ratings[:, i] → ratings of the current song in the loop (column i of the ratings matrix).
+
+        # It checks how similar both songs are based on user ratings.
         sim = cosine_similarity(target_song_ratings, ratings[:, i])
         similarities.append((song_names[i], sim))
 
+    # Sorts by similarity score (high to low).
+    # Returns top 3 similar songs.
     similarities.sort(key=lambda x: x[1], reverse=True)
     return similarities[:top_n]
 
