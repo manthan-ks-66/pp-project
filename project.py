@@ -16,6 +16,12 @@ song_names = [
     "Watermelon Sugar - Harry Styles"
 ]
 
+# This is a 2D NumPy array (or matrix) where:
+
+# Each row = 1 user
+
+# Each column = 1 song
+
 # Simulated user ratings (6 users x 10 songs)
 ratings = np.array([
     [5, 4, 3, 5, 4, 5, 2, 3, 4, 4],
@@ -27,8 +33,16 @@ ratings = np.array([
 ])
 
 def cosine_similarity(a, b):
+    #  It basically multiplies the corresponding ratings of the two songs and adds them up.
     num = np.dot(a, b)
+    # This line calculates the product of the magnitudes (lengths) of the two vectors.
+
+    # It uses np.linalg.norm() which gives the Euclidean length (like the size) of the vector.
     denom = np.linalg.norm(a) * np.linalg.norm(b)
+
+    # Finally, this line calculates the cosine similarity using the formula:
+    # If the denominator is 0 (which can happen if one vector is all zeroes), it returns 0 to avoid division by zero.
+
     return num / denom if denom != 0 else 0
 
 # Recommends top_n most similar songs to the one chosen.
@@ -76,7 +90,9 @@ for idx, song in enumerate(song_names):
 try:
     choice = int(input("\nEnter the number of a song you like (1-10): ")) - 1
     if 0 <= choice < len(song_names):
+        # Calls the recommendation function to get similar songs.
         recommendations = recommend_similar_songs(choice, ratings, song_names)
+        # Prints out the top 3 recommended songs with similarity scores.
         print(f"\nBecause you liked '{song_names[choice]}', you might also like:")
         for song, score in recommendations:
             print(f"- {song} (Similarity: {score:.2f})")
@@ -88,7 +104,7 @@ except ValueError:
 recommended_songs = ["Shape of You", "Stay", "Bad Habits"]
 similarity_scores = [0.99, 0.97, 0.96]
 
-plt.bar(recommended_songs, similarity_scores, color='green')
+plt.bar(recommended_songs, similarity_scores, color='red')
 plt.xlabel("Recommended Songs")
 plt.ylabel("Similarity Score")
 plt.title("Top 3 Similar Songs to 'Blinding Lights'")
